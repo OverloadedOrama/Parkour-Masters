@@ -14,6 +14,10 @@ config/name="Parkour Masters"
 run/main_scene="res://MainMenu.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+Global="*res://Global.gd"
+
 [input]
 
 move_forward={

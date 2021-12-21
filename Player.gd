@@ -6,8 +6,8 @@ var speed = 7
 const ACCEL_DEFAULT = 7
 const ACCEL_AIR = 1
 onready var accel = ACCEL_DEFAULT
-var gravity = 9.8
-var jump = 5
+var gravity = 9
+var jump = 3
 
 var cam_accel = 40
 var mouse_sense = 0.1
@@ -22,6 +22,8 @@ onready var head = $Head
 onready var camera = $Head/Camera
 
 onready var root = get_tree().get_root().get_node("Spatial")
+
+onready var timer = $"../Timer"
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -72,6 +74,11 @@ func _physics_process(delta):
 	movement = velocity + gravity_vec
 	
 	move_and_slide_with_snap(movement, snap, Vector3.UP)
-	if translation.y < -20:
+	if translation.y < -5:
 		get_tree().change_scene("res://YouLostMenu.tscn")
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	if get_slide_count() > 0:
+		var collision_data = get_slide_collision(0)
+		if collision_data.collider is StaticBody:
+			if timer.is_stopped():
+				timer.start()

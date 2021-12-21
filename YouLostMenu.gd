@@ -2,11 +2,13 @@ extends MarginContainer
 
 onready var selector_one = $CenterContainer/VBoxContainer/CenterContainer2/VBoxContainer/CenterContainer/HBoxContainer/Selector
 onready var selector_two = $CenterContainer/VBoxContainer/CenterContainer2/VBoxContainer/CenterContainer2/HBoxContainer/Selector
+onready var distance_label = find_node("DistanceLabel")
 
 var current_selection = 0
 
 func _ready():
 	set_current_selection(0)
+	distance_label.text = "Distance: %s Blocks" % [Global.distance]
 
 func _process(delta):
 	if Input.is_action_just_pressed("ui_down") and current_selection < 1:
