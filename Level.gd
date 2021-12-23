@@ -3,6 +3,7 @@ extends Spatial
 var box = preload("res://Box.tscn")
 var n = 5
 var destroy_block = false
+var z_distance = 5
 
 onready var player = find_node("Player")
 onready var boxparent = find_node("BoxParent")
@@ -13,7 +14,7 @@ func _ready():
 	Global.distance = 0
 
 func _physics_process(delta: float):
-	var player_z = floor(-(player.translation.z + 2) / 4.2)
+	var player_z = floor(-(player.translation.z + 2) / z_distance)
 	if player_z > Global.distance:
 		Global.distance = player_z
 
@@ -28,6 +29,6 @@ func _on_Timer_timeout():
 
 func add_box(number):
 	var csgbox = box.instance()
-	var z_pos = (number + 2) * -4.2
-	csgbox.translation = Vector3(rand_range(-1, 1), -2, z_pos)
+	var z_pos = (number + 2) * -z_distance
+	csgbox.translation = Vector3(rand_range(-2, 2), -2, z_pos)
 	boxparent.add_child(csgbox)
